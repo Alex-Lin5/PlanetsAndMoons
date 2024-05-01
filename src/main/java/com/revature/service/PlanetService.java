@@ -14,27 +14,35 @@ public class PlanetService {
 	}
 
 	public List<Planet> getAllPlanets() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Planet> Planets = dao.getAllPlanets();
+		return Planets;
 	}
 
 	public Planet getPlanetByName(int ownerId, String planetName) {
-		// TODO Auto-generated method stub
+		Planet foundPlanet = dao.getPlanetByName(planetName);
+		if(foundPlanet.getOwnerId() == ownerId){
+			return foundPlanet;
+		}
 		return null;
 	}
 
 	public Planet getPlanetById(int ownerId, int planetId) {
-		// TODO Auto-generated method stub
+		Planet foundPlanet = dao.getPlanetById(planetId);
+		if(foundPlanet.getOwnerId() == ownerId){
+			return foundPlanet;
+		}
 		return null;
 	}
 
 	public Planet createPlanet(int ownerId, Planet planet) {
-		// TODO Auto-generated method stub
+		Planet createdPlanet = dao.createPlanet(planet);
+		if(createdPlanet.getOwnerId() == ownerId){
+			return createdPlanet;
+		}
 		return null;
 	}
 
 	public boolean deletePlanetById(int ownerId, int planetId) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.deletePlanetById(planetId);
 	}
 }

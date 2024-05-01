@@ -14,31 +14,40 @@ public class MoonService {
 	}
 
 	public List<Moon> getAllMoons() {
-		// TODO implement
-		return null;
+		List<Moon> Moons = dao.getAllMoons();
+		return Moons;
 	}
 
 	public Moon getMoonByName(int myPlanetId, String moonName) {
-		// TODO implement
+		Moon foundMoon = dao.getMoonByName(moonName);
+		if(foundMoon.getMyPlanetId() == myPlanetId){
+			return foundMoon;
+		}
 		return null;
 	}
 
 	public Moon getMoonById(int myPlanetId, int moonId) {
-		// TODO Aimplement
+		Moon foundMoon = dao.getMoonById(moonId);
+		if(foundMoon.getMyPlanetId() == myPlanetId){
+			return foundMoon;
+		}
 		return null;
 	}
 
 	public Moon createMoon(Moon m) {
-		// TODO implement
+		Moon createdMoon = dao.createMoon(m);
+		if(createdMoon.getId() > 0){
+			return createdMoon;
+		}
 		return null;
 	}
 
 	public boolean deleteMoonById(int moonId) {
-		return false;
+		return dao.deleteMoonById(moonId);
 	}
 
 	public List<Moon> getMoonsFromPlanet(int myPlanetId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Moon> Moons = dao.getMoonsFromPlanet(myPlanetId);
+		return Moons;
 	}
 }
