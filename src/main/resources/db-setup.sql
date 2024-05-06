@@ -9,13 +9,13 @@ create table users(
 	password varchar(20)
 );
 create table planets(
-	id serial primary key,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name varchar(20),
 	ownerId int references users(id)
 );
 
 create table moons(
-	id serial primary key,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name varchar(20),
 	myPlanetId int references planets(id)
 );

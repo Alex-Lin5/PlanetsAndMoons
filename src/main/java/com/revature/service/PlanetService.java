@@ -35,11 +35,18 @@ public class PlanetService {
 	}
 
 	public Planet createPlanet(int ownerId, Planet planet) {
+		planet.setOwnerId(ownerId);
 		Planet createdPlanet = dao.createPlanet(planet);
-		if(createdPlanet.getOwnerId() == ownerId){
-			return createdPlanet;
+		if(createdPlanet == null){
+			return new Planet();
 		}
-		return null;
+//		if(createdPlanet.getId() == 0){
+//			return createdPlanet; // try to create existed planet, conflict
+//		}
+//		if(createdPlanet.getOwnerId() == ownerId){
+//			return createdPlanet;
+//		}
+		return createdPlanet;
 	}
 
 	public boolean deletePlanetById(int ownerId, int planetId) {

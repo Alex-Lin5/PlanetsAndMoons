@@ -36,6 +36,7 @@ public class MoonService {
 
 	public Moon createMoon(Moon m) {
 		Moon createdMoon = dao.createMoon(m);
+		if(createdMoon == null) return new Moon();
 		if(createdMoon.getId() > 0){
 			return createdMoon;
 		}

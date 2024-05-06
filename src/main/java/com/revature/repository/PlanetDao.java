@@ -1,9 +1,6 @@
 package com.revature.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class PlanetDao {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			List<Planet> Planets = new ArrayList<>();
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()){
+			while (rs.next()){
 				Planet foundPlanet = new Planet();
 				foundPlanet.setId(rs.getInt("id"));
 				foundPlanet.setName(rs.getString("name"));
@@ -74,14 +71,23 @@ public class PlanetDao {
 
 	public Planet createPlanet(Planet p) {
 		try(Connection connection = ConnectionUtil.createConnection()){
+			Planet createdPlanet = new Planet();
+			createdPlanet.setId(0);
+
+			String nonex = "select * from planets where ownerId = ? and name = ?";
+			PreparedStatement psn = connection.prepareStatement(nonex);
+			psn.setInt(1, p.getOwnerId());
+			psn.setString(2, p.getName());
+			ResultSet rsn = psn.executeQuery();
+			if(rsn.next()) return createdPlanet;
+
 			String sql = "insert into planets (name, ownerId) values (?, ?)";
-			PreparedStatement ps = connection.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, p.getName());
 			ps.setInt(2, p.getOwnerId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()){
-				Planet createdPlanet = new Planet();
+			if (rs.first()){
 				createdPlanet.setId(rs.getInt("id"));
 				createdPlanet.setName(rs.getString("name"));
 				createdPlanet.setOwnerId(rs.getInt("ownerId"));

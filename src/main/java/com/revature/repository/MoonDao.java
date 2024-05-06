@@ -18,7 +18,7 @@ public class MoonDao {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			List<Moon> Moons = new ArrayList<>();
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()){
+			while (rs.next()){
 				Moon foundMoon = new Moon();
 				foundMoon.setId(rs.getInt("id"));
 				foundMoon.setName(rs.getString("name"));
@@ -80,7 +80,7 @@ public class MoonDao {
 			ps.setInt(2, m.getMyPlanetId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()){
+			if (rs.first()){ add .
 				Moon createdMoon = new Moon();
 				createdMoon.setId(rs.getInt("id"));
 				createdMoon.setName(rs.getString("name"));
