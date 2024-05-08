@@ -35,6 +35,8 @@ public class PlanetService {
 	}
 
 	public Planet createPlanet(int ownerId, Planet planet) {
+		if(planet.getName().length()>30 | planet.getName().isBlank()) return new Planet();
+
 		planet.setOwnerId(ownerId);
 		Planet createdPlanet = dao.createPlanet(planet);
 		if(createdPlanet == null){

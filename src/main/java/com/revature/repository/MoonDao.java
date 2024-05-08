@@ -74,20 +74,39 @@ public class MoonDao {
 
 	public Moon createMoon(Moon m) {
 		try(Connection connection = ConnectionUtil.createConnection()){
+			Moon createdMoon = new Moon();
+			createdMoon.setId(0);
+
+			// if it is existed in orbiting planet
+			String nonex = "select * from moons where myPlanetId = ? and name = ?";
+			PreparedStatement psn = connection.prepareStatement(nonex);
+			psn.setInt(1, m.getMyPlanetId());
+			psn.setString(2, m.getName());
+			ResultSet rsn = psn.executeQuery();
+			if(rsn.next()) return createdMoon;
+
+			// if orbiting planet is existed
+			String nopl = "select * from planets where id = ?";
+			PreparedStatement pspl = connection.prepareStatement(nopl);
+			pspl.setInt(1, m.getMyPlanetId());
+			ResultSet rspl = pspl.executeQuery();
+			if(!rspl.next()) return createdMoon;
+
+			// all correct, insert into database
 			String sql = "insert into moons (name, myPlanetId) values (?, ?)";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, m.getName());
 			ps.setInt(2, m.getMyPlanetId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.first()){ add .
-				Moon createdMoon = new Moon();
+			if (rs.first()){
+//				Moon createdMoon = new Moon();
 				createdMoon.setId(rs.getInt("id"));
 				createdMoon.setName(rs.getString("name"));
 				createdMoon.setMyPlanetId(rs.getInt("myPlanetId"));
 				return createdMoon;
 			}
-			return new Moon();
+			return null;
 		} catch (SQLException e){
 			System.out.println(e);
 			return null;
