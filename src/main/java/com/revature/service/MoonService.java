@@ -16,9 +16,9 @@ public class MoonService {
 //		pdao =
 	}
 
-	public List<Moon> getAllMoons() {
+	public List<Moon> getAllMoons(Integer userId) {
 //		List<Planet> userPlanets = pdao.getAllPlanets();
-		List<Moon> Moons = dao.getAllMoons();
+		List<Moon> Moons = dao.getAllMoons(userId);
 		return Moons;
 	}
 

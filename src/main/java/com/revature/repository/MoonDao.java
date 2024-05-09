@@ -8,22 +8,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Moon;
+import com.revature.models.Planet;
 import com.revature.utilities.ConnectionUtil;
 
 public class MoonDao {
     
-    public List<Moon> getAllMoons() {
+    public List<Moon> getAllMoons(Integer userId) {
 		try(Connection connection = ConnectionUtil.createConnection()){
-			String sql = "select * from moons";
-			PreparedStatement ps = connection.prepareStatement(sql);
+			String plsql = "select * from planets where ownerId = ?";
+			PreparedStatement pspl = connection.prepareStatement(plsql);
+			pspl.setInt(1, userId);
+			List<Planet> Planets = new ArrayList<>();
+			ResultSet plrs = pspl.executeQuery();
+			while (plrs.next()){
+				Planet foundPlanet = new Planet();
+				foundPlanet.setId(plrs.getInt("id"));
+				foundPlanet.setName(plrs.getString("name"));
+				foundPlanet.setOwnerId(plrs.getInt("ownerId"));
+				Planets.add(foundPlanet);
+			}
+
 			List<Moon> Moons = new ArrayList<>();
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()){
-				Moon foundMoon = new Moon();
-				foundMoon.setId(rs.getInt("id"));
-				foundMoon.setName(rs.getString("name"));
-				foundMoon.setMyPlanetId(rs.getInt("myPlanetId"));
-				Moons.add(foundMoon);
+			for(Planet p: Planets){
+				String sql = "select * from moons where myPlanetId = ?";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, p.getId());
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()){
+					Moon foundMoon = new Moon();
+					foundMoon.setId(rs.getInt("id"));
+					foundMoon.setName(rs.getString("name"));
+					foundMoon.setMyPlanetId(rs.getInt("myPlanetId"));
+					Moons.add(foundMoon);
+				}
+
 			}
 			return Moons;
 		} catch (SQLException e){

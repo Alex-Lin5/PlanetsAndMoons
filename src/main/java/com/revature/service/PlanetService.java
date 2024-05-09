@@ -13,8 +13,8 @@ public class PlanetService {
 		this.dao = dao;
 	}
 
-	public List<Planet> getAllPlanets() {
-		List<Planet> Planets = dao.getAllPlanets();
+	public List<Planet> getAllPlanets(int userId) {
+		List<Planet> Planets = dao.getAllPlanets(userId);
 		return Planets;
 	}
 

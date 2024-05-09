@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Moon;
@@ -17,7 +18,9 @@ public class MoonController {
 	}
 
 	public void getAllMoons(Context ctx) {
-		ctx.json(moonService.getAllMoons()).status(200);
+		User u = ctx.sessionAttribute("user");
+//		List<Integer> planetsId = new ArrayList<>();
+		ctx.json(moonService.getAllMoons(u.getId())).status(200);
 	}
 
 	public void getMoonByName(Context ctx) {
