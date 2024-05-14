@@ -44,4 +44,14 @@ public class User {
 			return false;
 		return true;
 	}
+//	@Override
+//	public String toString(){
+//		String info = "";
+//		if(this == null) return null;
+//		if(this.id>-1)
+//			info += String.format("Id=%d ", this.id);
+//		if(this.username != null & this.password != null)
+//			info += String.format("username=%s, password=%s. \n", this.username, this.password);
+//		return this+"\n"+info;
+//	}
 }

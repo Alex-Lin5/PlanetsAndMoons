@@ -41,7 +41,7 @@ The Planetarium is a web service that allows Astronomers (Users) to record plane
 - Users should be able to remove Moons from the Planetarium they previously added
 - Users should be able to view Planet and Moons they have added to the Planetarium
 
-## Software Requirements  
+## Software Requirements
 - Users should have unique usernames
 - Usernames and passwords should not be longer than 30 characters
 - Users should only see Planet and Moon data for resources they have added to the Planetarium
@@ -72,6 +72,12 @@ Each class in the list below has one or more unimplemented methods you will need
 - Is the service easy to use?
 - Does the service inspire confidence?
 - Is the service pleasing to look at?
+
+## Automation Testing
+- Apply unit testing on different layers of application with mockito
+- Apply system testing with selenium package and cucumber for behavior-driven testing
+- Unit testing is implemented in bottom-up fashion and in sequence of data object user, planet, moon
+- System testing will begin from user authentication, then data CRUD operations
 
 # MVP Requirements
 - all provided methods in the "repository" package are implemented to meet business and software requirements
