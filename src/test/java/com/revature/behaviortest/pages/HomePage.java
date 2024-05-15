@@ -1,50 +1,37 @@
 package com.revature.behaviortest.pages;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
-public class LoginPage {
+public class HomePage {
 
     WebDriver driver;
-//    WebElement username;
-//    WebElement password;
-//    WebElement loginButton;
-    public LoginPage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
-        driver.get("http://localhost:7000/webpage/login");
+        driver.get("http://localhost:7000/api/webpage/home");
         driver.manage().window().maximize();
-//        username = driver.findElement(By.xpath("//input[@id='usernameInput']"));
-//        password = driver.findElement(By.xpath("//input[@id='passwordInput']"));;
-//        loginButton = driver.findElement(By.xpath("//input[@value='Login']"));;
         // get the page title
         String title = driver.getTitle();
         System.out.println("The page title : "+ title);
     }
     @FindBy(xpath="//input[@id='usernameInput']")
-    WebElement username;
+    WebElement selectPlanet;
     @FindBy(xpath="//input[@id='passwordInput']")
-    WebElement password;
+    WebElement addPlanet;
     @FindBy(xpath="//input[@value='Login']")
-    WebElement loginButton;
+    WebElement submitButton;
 
-    public void loginInput(String uname, String pwd){
-        username.sendKeys(uname);
-        password.sendKeys(pwd);
-        System.out.printf("username=%s, password=%s.\n", uname, pwd);
+    public void addPlanet(String planet){
+        System.out.printf("add planet %s\n", planet);
     }
-    public void loginSubmit(){
-        loginButton.click();
+    public void addSubmit(){
+        submitButton.click();
     }
     public String loginSuccess(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -65,12 +52,6 @@ public class LoginPage {
     public void closePage(){
 //        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-//
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
         driver.quit();
 
     }

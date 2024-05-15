@@ -6,21 +6,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class UserRegistrationSteps {
     static WebDriver driver;
     RegistrationPage registrationPage;
 
-    // User Login
+    // User registration
     @Given("Planetarium web service is started")
     public void planetarium_web_service_is_started() {
         System.out.println("Planetarium web service is started.");
@@ -29,15 +24,7 @@ public class UserRegistrationSteps {
     public void user_navigates_to_the_account_registration_page() {
         WebDriverManager.edgedriver().setup();
         driver = new EdgeDriver();
-
-        driver.get("http://localhost:7000/webpage/create");
-        driver.manage().window().maximize();
-
         registrationPage = new RegistrationPage(driver);
-
-        // get the page title
-        String title = driver.getTitle();
-        System.out.println("The page title : "+ title);
     }
     @When("User enters valid username and password")
     public void user_enters_valid_username_and_password() {
@@ -54,8 +41,6 @@ public class UserRegistrationSteps {
         String alertMessage = registrationPage.registrationAlertDismiss();
         // Account created successfully
         Assert.assertTrue(alertMessage.contains("Account created successfully"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-        driver.quit();
     }
 
     @When("User enters duplicated username and then password")
@@ -68,8 +53,6 @@ public class UserRegistrationSteps {
         String alertMessage = registrationPage.registrationAlertDismiss();
         // Account creation failed
         Assert.assertTrue(alertMessage.contains("Account creation failed "));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.quit();
     }
 
     @When("User enters blank username or blank password")
