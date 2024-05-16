@@ -22,14 +22,6 @@ public class LoginPage {
 //    WebElement loginButton;
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        driver.get("http://localhost:7000/webpage/login");
-        driver.manage().window().maximize();
-//        username = driver.findElement(By.xpath("//input[@id='usernameInput']"));
-//        password = driver.findElement(By.xpath("//input[@id='passwordInput']"));;
-//        loginButton = driver.findElement(By.xpath("//input[@value='Login']"));;
-        // get the page title
-        String title = driver.getTitle();
-        System.out.println("The page title : "+ title);
     }
     @FindBy(xpath="//input[@id='usernameInput']")
     WebElement username;
@@ -38,6 +30,17 @@ public class LoginPage {
     @FindBy(xpath="//input[@value='Login']")
     WebElement loginButton;
 
+    public void naviageToPage(){
+        driver.get("http://localhost:7000/webpage/login");
+        driver.manage().window().maximize();
+//        username = driver.findElement(By.xpath("//input[@id='usernameInput']"));
+//        password = driver.findElement(By.xpath("//input[@id='passwordInput']"));;
+//        loginButton = driver.findElement(By.xpath("//input[@value='Login']"));;
+        // get the page title
+        String title = driver.getTitle();
+        System.out.println("The page title : "+ title);
+
+    }
     public void loginInput(String uname, String pwd){
         username.sendKeys(uname);
         password.sendKeys(pwd);
@@ -48,7 +51,7 @@ public class LoginPage {
     }
     public String loginSuccess(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlContains("home"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:7000/api/webpage/home"));
         String title = driver.getTitle();
         System.out.println("Redirected to "+ title);
         return title;

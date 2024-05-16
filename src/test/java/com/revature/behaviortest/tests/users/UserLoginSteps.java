@@ -20,12 +20,14 @@ public class UserLoginSteps {
         WebDriverManager.edgedriver().setup();
         driver = new EdgeDriver();
         loginPage = PageFactory.initElements(driver, LoginPage.class);
+        loginPage.naviageToPage();
 //        loginPage = new LoginPage(driver);
     }
 
     @When("User enters valid username and password for login")
     public void user_enters_valid_username_and_password_for_login() {
-        loginPage.loginInput("unique", "valid");
+//        loginPage.loginInput("unique", "valid");
+        loginPage.loginInput("test", "test");
     }
 
     @When("Clicks on login button")
@@ -36,7 +38,7 @@ public class UserLoginSteps {
     @Then("User is successfully logged in with the account")
     public void user_is_successfully_logged_in_with_the_account() {
         String title = loginPage.loginSuccess();
-        Assert.assertTrue(title.contains("home"));
+        Assert.assertTrue(title.contains("Home"));
         loginPage.closePage();
     }
 
