@@ -1,4 +1,4 @@
-package com.revature.behaviortest.tests.planets;
+package com.revature.behavior.tests.runner;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/main/resources/features/planets/addPlanets.feature",
-        glue = "com/revature/behaviortest/tests/planets"
+        features = "src/test/resources/features/planets/addPlanets.feature",
+        glue = "com/revature/behavior/tests/steps"
 )
 public class AddPlanetsRunner {
 }

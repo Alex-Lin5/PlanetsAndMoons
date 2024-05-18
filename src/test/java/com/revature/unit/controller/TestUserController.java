@@ -1,4 +1,4 @@
-package com.revature.unittest.controller;
+package com.revature.unit.controller;
 
 import com.revature.controller.UserController;
 import com.revature.models.User;

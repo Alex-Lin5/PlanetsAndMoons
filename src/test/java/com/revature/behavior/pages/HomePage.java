@@ -1,4 +1,4 @@
-package com.revature.behaviortest.pages;
+package com.revature.behavior.pages;
 
 import com.revature.models.Moon;
 import com.revature.models.Planet;
