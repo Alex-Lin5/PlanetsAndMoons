@@ -40,8 +40,9 @@ public class PlanetController {
 	public void createPlanet(Context ctx) {
 		Planet planetToBeCreated = ctx.bodyAsClass(Planet.class);
 		User u = ctx.sessionAttribute("user");
+		planetToBeCreated.setOwnerId(u.getId());
 		
-		Planet createdPlanet = planetService.createPlanet(u.getId(),planetToBeCreated);
+		Planet createdPlanet = planetService.createPlanet(planetToBeCreated);
 		
 		ctx.json(createdPlanet).status(201);
 	}

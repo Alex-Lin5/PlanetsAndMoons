@@ -14,8 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TestUserService {
@@ -40,33 +39,71 @@ public class TestUserService {
         createdUser.setPassword("validpwd");
         when(userDao.createUser(user)).thenReturn(createdUser);
         User actualUser = userService.register(createdUser);
-        Mockito.verify(this.userDao, times(1)).createUser(user);
+        verify(this.userDao, times(1)).createUser(user);
         Assertions.assertEquals(createdUser, actualUser);
+
+    }
+    @Test
+    public void testUserRegistrationNegativeLongCharacters() {
+        User createdUser = new User();
+        createdUser.setId(1);
+        createdUser.setUsername("testUserRegistrationNegativetestUserRegistrationNegativetestUserRegistrationNegative");
+        createdUser.setPassword("validpwd");
+        User actualUser = userService.register(createdUser);
+//        Assertions.assertNull(actualUser);
+        Assertions.assertEquals(actualUser, new User());
+
+    }
+    @Test
+    public void testUserRegistrationNegativeFoundUsername() {
+        User createdUser = new User();
+        createdUser.setId(1);
+        createdUser.setUsername("foundUsername");
+        createdUser.setPassword("validpwd");
+        when(userDao.getUserByUsername(createdUser.getUsername())).thenReturn(null);
+        User actualUser = userService.register(createdUser);
+        Mockito.verify(this.userDao, times(1)).getUserByUsername(createdUser.getUsername());
+        Assertions.assertNull(actualUser);
 
     }
 
     @Test
-    public void testUserAuthenticateSuccess(){
-        User u = new User();
-        u.setId(0);
-        u.setUsername("valid");
-        u.setPassword("valid");
+    public void testUserAuthenticatePositive(){
+        User userReturn = new User();
+        userReturn.setUsername("valid");
+        userReturn.setPassword("valid");
+        UsernamePasswordAuthentication userAuth = new UsernamePasswordAuthentication();
+        userAuth.setUsername("testUserAuthenticatePositive");
+        userAuth.setPassword("validpwd");
 
-        User uret = new User();
-        u.setId(10);
-        u.setUsername("valid");
-        u.setPassword("valid");
+        when(this.userDao.getUserByUsername(userAuth.getUsername())).thenReturn(userReturn);
+        User userActual = this.userService.authenticate(userAuth);
+        Assertions.assertEquals(userReturn, userActual);
+        verify(userDao, times(1)).getUserByUsername(userAuth.getUsername());
 
-        UsernamePasswordAuthentication userauth = new UsernamePasswordAuthentication();
-//        userauth.setUsername(u.getUsername());
-//        userauth.setPassword(u.getPassword());
-        userauth.setUsername("validusr");
-        userauth.setPassword("validpwd");
-
-        when(this.userDao.getUserByUsername(u.getUsername())).thenReturn(uret);
-
-        User res = this.userService.authenticate(userauth);
-        Assertions.assertEquals(u.getUsername(), res.getUsername());
-        Assertions.assertEquals(u.getPassword(), res.getPassword());
     }
+    @Test
+    public void testUserAuthenticateNegativeLongCharacters() {
+        UsernamePasswordAuthentication userAuth = new UsernamePasswordAuthentication();
+        userAuth.setUsername("testUserAuthenticateNegativetestUserAuthenticateNegativetestUserAuthenticateNegative");
+        userAuth.setPassword("validpwd");
+
+        User userActual = this.userService.authenticate(userAuth);
+        Assertions.assertNull(userActual);
+
+    }
+    @Test
+    public void testUserAuthenticateNegativeFoundNoUsername() {
+        User userReturn = new User();
+
+        UsernamePasswordAuthentication userAuth = new UsernamePasswordAuthentication();
+        userAuth.setUsername("invalid");
+        userAuth.setPassword("validpwd");
+
+        when(this.userDao.getUserByUsername(userAuth.getUsername())).thenReturn(userReturn);
+        User userActual = this.userService.authenticate(userAuth);
+        Assertions.assertEquals(userReturn, userActual);
+        verify(userDao, times(1)).getUserByUsername(userAuth.getUsername());
+    }
+
 }

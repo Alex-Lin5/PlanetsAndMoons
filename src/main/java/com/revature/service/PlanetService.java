@@ -19,7 +19,7 @@ public class PlanetService {
 	}
 
 	public Planet getPlanetByName(int ownerId, String planetName) {
-		Planet foundPlanet = dao.getPlanetByName(planetName);
+		Planet foundPlanet = dao.getPlanetByName(ownerId, planetName);
 		if(foundPlanet.getOwnerId() == ownerId){
 			return foundPlanet;
 		}
@@ -27,17 +27,17 @@ public class PlanetService {
 	}
 
 	public Planet getPlanetById(int ownerId, int planetId) {
-		Planet foundPlanet = dao.getPlanetById(planetId);
+		Planet foundPlanet = dao.getPlanetById(ownerId, planetId);
 		if(foundPlanet.getOwnerId() == ownerId){
 			return foundPlanet;
 		}
 		return null;
 	}
 
-	public Planet createPlanet(int ownerId, Planet planet) {
+	public Planet createPlanet(Planet planet) {
 		if(planet.getName().length()>30 | planet.getName().isBlank()) return new Planet();
 
-		planet.setOwnerId(ownerId);
+//		planet.setOwnerId(ownerId);
 		Planet createdPlanet = dao.createPlanet(planet);
 		if(createdPlanet == null){
 			return new Planet();
@@ -52,6 +52,6 @@ public class PlanetService {
 	}
 
 	public boolean deletePlanetById(int ownerId, int planetId) {
-		return dao.deletePlanetById(planetId);
+		return dao.deletePlanetById(ownerId, planetId);
 	}
 }

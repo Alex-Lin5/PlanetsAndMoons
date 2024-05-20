@@ -1,4 +1,4 @@
-package com.revature.integration;
+package com.revature.system;
 
 import com.revature.utilities.ConnectionUtil;
 import com.revature.utilities.RequestMapper;
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class UserRegistrationTest {
     public Connection connection;
@@ -27,11 +28,33 @@ public class UserRegistrationTest {
     }
 
     @Test
-    public void createUserPositive(){
+    public void testUserRegisterPositive(){
+        int randomNum = ThreadLocalRandom.current().nextInt(1000, 9999);
         JavalinTest.test(app, (server, client)->{
             Map<String,String> requestJSON=new HashMap<>();
-            requestJSON.put("username","newuser");
+            requestJSON.put("username","IntegrationTest"+randomNum);
             requestJSON.put("password","validpwd");
+
+//            User user = new User();
+//            user.
+            int actualStatusCode;
+            String responseBody;
+            try(Response response=client.post("/register",requestJSON)){
+                actualStatusCode=response.code();
+                responseBody= Objects.requireNonNull(response.body().string());
+//                User userReturn = Objects.requireNonNull(response.bo);
+                System.out.println(actualStatusCode+" :::: "+responseBody);
+            }
+            Assertions.assertEquals(201,actualStatusCode);
+            Assertions.assertNotNull(responseBody);
+        });
+    }
+    @Test
+    public void testUserRegisterNegativeBlankInput(){
+        JavalinTest.test(app, (server, client)->{
+            Map<String,String> requestJSON=new HashMap<>();
+            requestJSON.put("username","     ");
+            requestJSON.put("password","valid");
             int actualStatusCode;
             String responseBody;
             try(Response response=client.post("/register",requestJSON)){
@@ -40,6 +63,7 @@ public class UserRegistrationTest {
                 System.out.println(actualStatusCode+" :::: "+responseBody);
             }
             Assertions.assertEquals(201,actualStatusCode);
+//            Assertions.assertEquals(responseBody, new User().toString());
         });
     }
 }

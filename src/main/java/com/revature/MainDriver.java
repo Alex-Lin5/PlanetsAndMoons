@@ -17,6 +17,7 @@ public class MainDriver {
             });
         });
         RequestMapper.setUpEndPoints(app);
-        app.start(7000);   
+        System.out.println("Driver Development is running.");
+        app.start(7000);
     }
 }

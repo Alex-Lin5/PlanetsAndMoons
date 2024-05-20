@@ -1,7 +1,7 @@
-package com.revature.behavior.tests.steps;
+package com.revature.end2end.tests.steps;
 
-import com.revature.behavior.pages.HomePage;
-import com.revature.behavior.pages.LoginPage;
+import com.revature.end2end.pages.HomePage;
+import com.revature.end2end.pages.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AddPlanetsSteps {
+public class PlanetAddSteps {
     WebDriver driver;
     LoginPage loginPage;
     HomePage homePage;

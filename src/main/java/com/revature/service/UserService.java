@@ -13,7 +13,9 @@ public class UserService {
 	}
 
 	public User authenticate(UsernamePasswordAuthentication loginRequestData) {
-		// TODO: implement
+		if(loginRequestData.getUsername().length()>30 | loginRequestData.getPassword().length()>30 |
+			loginRequestData.getUsername().isBlank() | loginRequestData.getPassword().isBlank())
+			return null;
 		return dao.getUserByUsername(loginRequestData.getUsername());
 	}
 
@@ -32,6 +34,6 @@ public class UserService {
 			}
 		}
 		// if the user data does not meet business or software requirements return a null object
-		return null;
+		return new User();
 	}
 }

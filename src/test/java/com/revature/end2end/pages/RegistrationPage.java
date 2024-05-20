@@ -1,4 +1,4 @@
-package com.revature.behavior.pages;
+package com.revature.end2end.pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;

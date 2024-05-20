@@ -40,7 +40,7 @@ public class UserDao {
                User createdUser = new User();
                createdUser.setId(rs.getInt(1));
                createdUser.setUsername(registerRequest.getUsername());
-               createdUser.setPassword(registerRequest.getPassword());
+//               createdUser.setPassword(registerRequest.getPassword());
                return createdUser;
            }
            return new User();

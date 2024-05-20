@@ -17,21 +17,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TestUserDao {
-    @Mock
-    public PreparedStatement ps;
-    @InjectMocks
+//    @Mock
+//    public PreparedStatement ps;
+//    @InjectMocks
     public UserDao dao;
 
     public Connection connection;
 
     @BeforeEach
     public void setup() throws SQLException{
-        connection = ConnectionUtil.createConnection();
+//        connection = ConnectionUtil.createConnection();
 //        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetUserByUsername() throws SQLException {
+    public void testGetUserByUsernamePositive() throws SQLException {
         User u = new User();
         u.setId(0);
         u.setUsername("testGetUserByUsername");
@@ -48,7 +48,7 @@ public class TestUserDao {
     public void testRegisterUserPositive() {
         User u = new User();
         u.setId(0);
-        u.setUsername("testRegisterUserPositive");
+        u.setUsername("testUserDaoPositive1");
         u.setPassword("valid");
 
         UsernamePasswordAuthentication uauth = new UsernamePasswordAuthentication();

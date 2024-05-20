@@ -16,6 +16,7 @@ public class MainDriverTest {
             });
         });
         RequestMapper.setUpEndPoints(app);
+        System.out.println("Driver Test is running.");
         app.start(7000);   
     }
 }

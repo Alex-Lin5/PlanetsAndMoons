@@ -1,6 +1,6 @@
-package com.revature.behavior.tests.steps;
+package com.revature.end2end.tests.steps;
 
-import com.revature.behavior.pages.RegistrationPage;
+import com.revature.end2end.pages.RegistrationPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

@@ -30,7 +30,7 @@ public class PlanetDao {
 		}
 	}
 
-	public Planet getPlanetByName(String planetName) {
+	public Planet getPlanetByName(int ownerId, String planetName) {
 		try(Connection connection = ConnectionUtil.createConnection()){
 			String sql = "select * from planets where name = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -50,7 +50,7 @@ public class PlanetDao {
 		}
 	}
 
-	public Planet getPlanetById(int planetId) {
+	public Planet getPlanetById(int ownerId, int planetId) {
 		try(Connection connection = ConnectionUtil.createConnection()){
 			String sql = "select * from planets where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class PlanetDao {
 			ps.setInt(2, p.getOwnerId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.first()){
+			if (rs.next()){
 				createdPlanet.setId(rs.getInt("id"));
 				createdPlanet.setName(rs.getString("name"));
 				createdPlanet.setOwnerId(rs.getInt("ownerId"));
@@ -101,7 +101,7 @@ public class PlanetDao {
 		}
 	}
 
-	public boolean deletePlanetById(int planetId) {
+	public boolean deletePlanetById(int ownerId, int planetId) {
 		try(Connection connection = ConnectionUtil.createConnection()){
 			String sql = "delete from planets where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
