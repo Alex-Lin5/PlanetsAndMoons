@@ -27,6 +27,8 @@ public class HomePage {
     WebElement addPlanet;
     @FindBy(xpath="//input[@id='moonNameInput']")
     WebElement addMoon;
+    @FindBy(xpath="//input[@id='deleteInput']")
+    WebElement deleteBox;
     @FindBy(xpath="//input[@id='OrbitedPlanetInput']")
     WebElement addAssociatedPlanet;
     @FindBy(xpath="//input[@id='searchPlanetInput']")
@@ -72,9 +74,10 @@ public class HomePage {
     public void addSubmit(){
         submitButton.click();
     }
-    public void deleteCelestial(){
+    public void deleteSubmit(){
         deleteButton.click();
     }
+    public void deletePlanetById(String id){ deleteBox.sendKeys(id);}
 
     public boolean foundPlanet(String name) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));

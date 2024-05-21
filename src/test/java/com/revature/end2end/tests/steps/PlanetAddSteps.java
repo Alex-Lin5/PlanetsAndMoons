@@ -18,10 +18,10 @@ public class PlanetAddSteps {
     LoginPage loginPage;
     HomePage homePage;
 
-    @Given("Planetarium web service is started")
-    public void planetarium_web_service_is_started() {
-        System.out.println("Planetarium web service is started.");
-    }
+//    @Given("Planetarium web service is started")
+//    public void planetarium_web_service_is_started() {
+//        System.out.println("Planetarium web service is started.");
+//    }
     @Given("User navigates to the Planetarium home page")
     public void user_navigates_to_the_planetarium_home_page() {
         WebDriverManager.edgedriver().setup();
