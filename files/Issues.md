@@ -11,3 +11,7 @@ SQL exception ResultSet is TYPE_FORWARD_ONLY; when new username input is provide
 4. when executing celestial deleting tests, it is challenging to found a valid object each time running tests automatically
 
 5. the step definition for different feature files could be used again, so it causes the step definition organization problem
+
+6. java.sql.SQLException: The prepared statement has been finalized
+   throw ps exception above when mocking database connection instance initialize ps
+

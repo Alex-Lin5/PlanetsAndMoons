@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TestSystemUser {
+public class TestAPIsUser {
     public Javalin app;
     public Connection connection;
 

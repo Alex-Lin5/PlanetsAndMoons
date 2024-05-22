@@ -5,9 +5,9 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-        TestSystemPlanet.class,
-        TestSystemMoon.class,
-        TestSystemUser.class
+        TestAPIsPlanet.class,
+        TestAPIsMoon.class,
+        TestAPIsUser.class
 })
 public class TestAPIsAll {
 }
