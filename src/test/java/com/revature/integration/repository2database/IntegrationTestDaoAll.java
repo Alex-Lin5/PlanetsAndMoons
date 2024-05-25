@@ -5,9 +5,9 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-        IntegrationTestMoon.class,
-        IntegrationTestPlanet.class,
-        IntegrationTestUser.class
+        IntegrationTestDaoMoon.class,
+        IntegrationTestDaoPlanet.class,
+        IntegrationTestDaoUser.class
 })
-public class IntegrationTestAll {
+public class IntegrationTestDaoAll {
 }

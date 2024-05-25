@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class IntegrationTestMoon {
+public class IntegrationTestDaoMoon {
     public MoonDao moonDao;
     
     @BeforeEach

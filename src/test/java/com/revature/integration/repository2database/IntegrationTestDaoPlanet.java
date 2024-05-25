@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class IntegrationTestPlanet {
+public class IntegrationTestDaoPlanet {
     public PlanetDao planetDao;
     public static int planetPassId;
 

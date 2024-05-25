@@ -1,4 +1,4 @@
-package com.revature.api;
+package com.revature.integration.controller2database;
 
 import com.revature.utilities.RequestMapper;
 import io.javalin.Javalin;
@@ -6,16 +6,15 @@ import io.javalin.testtools.JavalinTest;
 import okhttp3.Response;
 import org.junit.jupiter.api.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
+// this is also api test
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestAPIsUser {
-    public Javalin app;
+public class IntegrationTestControllerUser {
+    Javalin app;
 
     @BeforeAll
     public static void setupClass() {
@@ -112,4 +111,5 @@ public class TestAPIsUser {
 //            Assertions.assertNull(responseBody);
         });
     }
+
 }

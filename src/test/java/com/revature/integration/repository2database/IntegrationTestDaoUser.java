@@ -3,7 +3,6 @@ package com.revature.integration.repository2database;
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.repository.UserDao;
-import com.revature.utilities.ConnectionUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class IntegrationTestUser {
+public class IntegrationTestDaoUser {
     public UserDao userDao;
     public Connection connection;
 

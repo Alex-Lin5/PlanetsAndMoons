@@ -1,4 +1,4 @@
-package com.revature.end2end.tests.steps;
+package com.revature.end2end.steps;
 
 import com.revature.end2end.pages.LoginPage;
 import io.cucumber.java.en.Given;
