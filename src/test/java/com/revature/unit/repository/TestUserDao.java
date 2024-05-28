@@ -4,7 +4,6 @@ import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.repository.UserDao;
 import com.revature.utilities.ConnectionUtil;
-import io.javalin.Javalin;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.mockito.*;
@@ -40,13 +39,15 @@ public class TestUserDao {
 
     @AfterAll
     public static void tearDownClass() {
-//        connectionUtil.close();
+        connectionUtil.close();
     }
 
     @BeforeEach
     public void setUp() throws SQLException {
         connection = Mockito.mock(Connection.class);
         connectionUtil.when(ConnectionUtil::createConnection).thenReturn(connection);
+        ps = Mockito.mock(PreparedStatement.class);
+        resultSet = Mockito.mock(ResultSet.class);
     }
 
     @AfterEach
@@ -58,12 +59,10 @@ public class TestUserDao {
     @Test
     public void testCreateUserPositive() throws SQLException {
 
-        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString(), anyInt())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
         when(ps.executeUpdate()).thenReturn(1);
 
-        resultSet = Mockito.mock(ResultSet.class);
         when(ps.getGeneratedKeys()).thenReturn(resultSet);
         when(resultSet.first()).thenReturn(Boolean.TRUE);
         when(resultSet.getInt(anyInt())).thenReturn(userId);
@@ -89,12 +88,12 @@ public class TestUserDao {
 
     @Test
     public void testCreateUserNegative() throws SQLException {
-        ps = Mockito.mock(PreparedStatement.class);
+//        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString(), anyInt())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
         when(ps.executeUpdate()).thenReturn(1);
 
-        resultSet = Mockito.mock(ResultSet.class);
+//        resultSet = Mockito.mock(ResultSet.class);
         when(ps.getGeneratedKeys()).thenReturn(resultSet);
         when(resultSet.first()).thenReturn(Boolean.FALSE);
 
@@ -116,11 +115,11 @@ public class TestUserDao {
 
     @Test
     public void testGetUserByUsernamePositive() throws SQLException {
-        ps = Mockito.mock(PreparedStatement.class);
+//        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
 
-        resultSet = Mockito.mock(ResultSet.class);
+//        resultSet = Mockito.mock(ResultSet.class);
         when(ps.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(Boolean.TRUE);
         when(resultSet.getInt(anyString())).thenReturn(userId);
@@ -148,11 +147,11 @@ public class TestUserDao {
 
     @Test
     public void testGetUserByUsernameNegative() throws SQLException {
-        ps = Mockito.mock(PreparedStatement.class);
+//        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
 
-        resultSet = Mockito.mock(ResultSet.class);
+//        resultSet = Mockito.mock(ResultSet.class);
         when(ps.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(Boolean.FALSE);
 

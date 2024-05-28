@@ -4,35 +4,21 @@ import com.revature.controller.UserController;
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.service.UserService;
-import com.revature.utilities.RequestMapper;
-import io.javalin.Javalin;
 import io.javalin.http.Context;
-import io.javalin.testtools.JavalinTest;
-import okhttp3.Response;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@ExtendWith(MockitoExtension.class)
 public class TestUserController {
-    Javalin app;
 
     @Mock
-    public UserService userService;
+    UserService userService;
     @InjectMocks
-    public UserController userController;
+    UserController userController;
 
     @BeforeAll
     public static void setupClass() {
@@ -45,90 +31,108 @@ public class TestUserController {
     }
 
     private final Context ctx = mock(Context.class);
-//    public UserController userController;
     @BeforeEach
     public void setup(){
+        userService = Mockito.mock(UserService.class);
         userController = new UserController(userService);
-        app = Javalin.create();
-        RequestMapper.setUpEndPoints(app);
     }
 
     @Test
     @DisplayName("Register::Positive")
-    @Order(1)
     public void testUserRegisterPositive() {
-//        int randomNum = ThreadLocalRandom.current().nextInt(1000, 9999);
-        JavalinTest.test(app, (server, client) -> {
-            Map<String, String> requestJSON = new HashMap<>();
-            requestJSON.put("username", "APIsTestUser");
-            requestJSON.put("password", "validPassword");
-
-            int actualStatusCode;
-            String responseBody;
-            try (Response response = client.post("/register", requestJSON)) {
-                actualStatusCode = response.code();
-                responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
-            }
-            Assertions.assertEquals(201, actualStatusCode);
-            Assertions.assertNotNull(responseBody);
-            System.out.println(responseBody);
-        });
+        User userInput = new User();
+        userInput.setUsername("testUserRegisterPositive");
+        userInput.setPassword("valid");
+        User userReturn = new User();
+        userReturn.setId(100);
+        userReturn.setUsername("testUserRegisterPositive");
+        userReturn.setPassword("valid");
+        Mockito.when(ctx.bodyAsClass(User.class)).thenReturn(userInput);
+        Mockito.when(userService.register(any())).thenReturn(userReturn);
+        Mockito.when(ctx.json(userReturn)).thenReturn(ctx);
+//        Mockito.when(ctx.status()).thenReturn(HttpStatus.forStatus(201));
+//        Mockito.doNothing().when(ctx.json(new Object()));
+        userController.register(ctx);
+        System.out.println(ctx.body());
+        Mockito.verify(ctx).status(201);
+        Mockito.verify(ctx).json(userReturn);
     }
 
     @Test
     @DisplayName("Login::Positive")
-    @Order(2)
     public void testUserLoginPositive() {
-        JavalinTest.test(app, (server, client) -> {
-            Map<String, String> requestJSON = new HashMap<>();
-            requestJSON.put("username", "APIsTestUser");
-            requestJSON.put("password", "validPassword");
-            int actualStatusCode;
-            String responseBody;
-            try (Response response = client.post("/login", requestJSON)) {
-                actualStatusCode = response.code();
-                responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
-            }
-            Assertions.assertEquals(202, actualStatusCode);
-        });
+        UsernamePasswordAuthentication userInput = new UsernamePasswordAuthentication();
+        userInput.setUsername("testUserRegisterPositive");
+        userInput.setPassword("valid");
+        User userReturn = new User();
+        userReturn.setId(100);
+        userReturn.setUsername("testUserRegisterPositive");
+        userReturn.setPassword("valid");
+        Mockito.when(ctx.bodyAsClass(UsernamePasswordAuthentication.class)).thenReturn(userInput);
+        Mockito.when(userService.authenticate(any())).thenReturn(userReturn);
+        userController.authenticate(ctx);
+        System.out.println(ctx.body());
+        Mockito.verify(ctx).status(202);
+        Mockito.verify(ctx).json(userReturn);
+
+
+
     }
 
     @Test
     @DisplayName("Login::Negative - invalid password")
     public void testUserLoginNegative() {
-        JavalinTest.test(app, (server, client) -> {
-            Map<String, String> requestJSON = new HashMap<>();
-            requestJSON.put("username", "APIsTestUser");
-            requestJSON.put("password", "invalid");
-            int actualStatusCode;
-            String responseBody;
-            try (Response response = client.post("/login", requestJSON)) {
-                actualStatusCode = response.code();
-                responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
-            }
-            Assertions.assertEquals(400, actualStatusCode);
-        });
+        UsernamePasswordAuthentication userInput = new UsernamePasswordAuthentication();
+        userInput.setUsername("testUserRegisterPositive");
+        userInput.setPassword("valid");
+        User userReturn = new User();
+        userReturn.setId(100);
+        userReturn.setUsername("testUserRegisterPositive");
+        userReturn.setPassword("valid");
+        Mockito.when(ctx.bodyAsClass(UsernamePasswordAuthentication.class)).thenReturn(userInput);
+        Mockito.when(userService.authenticate(any())).thenReturn(null);
+        userController.authenticate(ctx);
+        System.out.println(ctx.body());
+        Mockito.verify(ctx).status(400);
+//        Mockito.verify(ctx).json();
+
     }
 
     @Test
     @DisplayName("Register::Negative - Blank Input")
     public void testUserRegisterNegativeBlankInput() {
-        JavalinTest.test(app, (server, client) -> {
-            Map<String, String> requestJSON = new HashMap<>();
-            requestJSON.put("username", "           ");
-            requestJSON.put("password", "valid");
-            int actualStatusCode;
-            String responseBody;
-            try (Response response = client.post("/register", requestJSON)) {
-                actualStatusCode = response.code();
-                responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
-            }
-            Assertions.assertEquals(201, actualStatusCode);
-//            Assertions.assertNull(responseBody);
+        User userInput = new User();
+        userInput.setUsername("         ");
+        userInput.setPassword("valid");
+        User userReturn = new User();
+//        userReturn.setId(100);
+//        userReturn.setUsername("testUserRegisterPositive");
+//        userReturn.setPassword("valid");
+        Mockito.when(ctx.bodyAsClass(User.class)).thenReturn(userInput);
+        Mockito.when(userService.register(any())).thenReturn(userReturn);
+        Mockito.when(ctx.json(userReturn)).thenReturn(ctx);
+        userController.register(ctx);
+        System.out.println(ctx.body());
+        Mockito.verify(ctx).status(201);
+        Mockito.verify(ctx).json(userReturn);
+
+    }
+    @Test
+    @DisplayName("Register::Negative - Throw NullPointerException")
+    public void testUserRegisterNegativeThrowException() {
+        User userInput = new User();
+        userInput.setUsername("         ");
+        userInput.setPassword("valid");
+        User userReturn = null;
+//        userReturn.setId(100);
+//        userReturn.setUsername("testUserRegisterPositive");
+//        userReturn.setPassword("valid");
+        Mockito.when(ctx.bodyAsClass(User.class)).thenReturn(userInput);
+        Mockito.when(userService.register(any())).thenReturn(userReturn);
+//        Mockito.when(ctx.json(null)).thenReturn(ctx);
+        Assertions.assertThrows(NullPointerException.class, ()->{
+            userController.register(ctx);
         });
+        System.out.println(ctx.body());
     }
 }

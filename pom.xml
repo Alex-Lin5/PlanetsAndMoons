@@ -44,6 +44,11 @@
       <version>3.25.3</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin-context-mock</artifactId>
+      <version>6.1.4</version>
+    </dependency>
 
 <!--    for cucumber and selenium-->
     <dependency>

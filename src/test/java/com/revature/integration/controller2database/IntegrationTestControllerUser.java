@@ -1,5 +1,6 @@
 package com.revature.integration.controller2database;
 
+import com.revature.utilities.ConnectionUtil;
 import com.revature.utilities.RequestMapper;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
@@ -17,13 +18,13 @@ public class IntegrationTestControllerUser {
     Javalin app;
 
     @BeforeAll
-    public static void setupClass() {
-//        cleanDatabaseTable();
+    public static void setupClass() throws SQLException{
+        ConnectionUtil.deleteTable();
     }
 
     @AfterAll
-    public static void teardownClass() {
-//        cleanDatabaseTable();
+    public static void teardownClass() throws  SQLException{
+        ConnectionUtil.deleteTable();
     }
 
 
