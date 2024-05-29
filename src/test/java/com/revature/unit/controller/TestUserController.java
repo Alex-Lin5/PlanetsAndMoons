@@ -74,11 +74,11 @@ public class TestUserController {
     public void testUserLoginNegative() {
         UsernamePasswordAuthentication userInput = new UsernamePasswordAuthentication();
         userInput.setUsername("testUserRegisterPositive");
-        userInput.setPassword("valid");
-        User userReturn = new User();
-        userReturn.setId(100);
-        userReturn.setUsername("testUserRegisterPositive");
-        userReturn.setPassword("valid");
+        userInput.setPassword("invalid");
+//        User userReturn = new User();
+//        userReturn.setId(100);
+//        userReturn.setUsername("testUserRegisterPositive");
+//        userReturn.setPassword("valid");
         Mockito.when(ctx.bodyAsClass(UsernamePasswordAuthentication.class)).thenReturn(userInput);
         Mockito.when(userService.authenticate(any())).thenReturn(null);
         userController.authenticate(ctx);
