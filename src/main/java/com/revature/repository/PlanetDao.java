@@ -89,9 +89,9 @@ public class PlanetDao {
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()){
-				createdPlanet.setId(rs.getInt("id"));
-				createdPlanet.setName(rs.getString("name"));
-				createdPlanet.setOwnerId(rs.getInt("ownerId"));
+				createdPlanet.setId(rs.getInt(1));
+				createdPlanet.setName(p.getName());
+				createdPlanet.setOwnerId(p.getOwnerId());
 				return createdPlanet;
 			}
 			return null;

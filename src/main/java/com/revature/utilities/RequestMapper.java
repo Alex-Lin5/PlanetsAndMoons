@@ -18,7 +18,6 @@ import io.javalin.Javalin;
 
 public class RequestMapper {
     private static final UserDao UserDao = new UserDao();
-    //private static final UserService UserService = new UserServiceMock(UserDao);
 	private static final UserService UserService = new UserService(UserDao);
     private static final UserController UserController = new UserController(UserService);
     private static final PlanetDao PlanetDao = new PlanetDao();

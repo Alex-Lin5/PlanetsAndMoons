@@ -117,11 +117,11 @@ public class MoonDao {
 			ps.setInt(2, m.getMyPlanetId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.first()){
+			if (rs.next()){
 //				Moon createdMoon = new Moon();
-				createdMoon.setId(rs.getInt("id"));
-				createdMoon.setName(rs.getString("name"));
-				createdMoon.setMyPlanetId(rs.getInt("myPlanetId"));
+				createdMoon.setId(rs.getInt(1));
+				createdMoon.setName(m.getName());
+				createdMoon.setMyPlanetId(m.getMyPlanetId());
 				return createdMoon;
 			}
 			return null;

@@ -19,12 +19,12 @@ public class IntegrationTestControllerUser {
 
     @BeforeAll
     public static void setupClass() throws SQLException{
-        ConnectionUtil.deleteTable();
+        ConnectionUtil.deleteTables();
     }
 
     @AfterAll
     public static void teardownClass() throws  SQLException{
-        ConnectionUtil.deleteTable();
+        ConnectionUtil.deleteTables();
     }
 
 

@@ -20,16 +20,6 @@ public class TestUserController {
     @InjectMocks
     UserController userController;
 
-    @BeforeAll
-    public static void setupClass() {
-//        cleanDatabaseTable();
-    }
-
-    @AfterAll
-    public static void teardownClass() {
-//        cleanDatabaseTable();
-    }
-
     private final Context ctx = mock(Context.class);
     @BeforeEach
     public void setup(){
