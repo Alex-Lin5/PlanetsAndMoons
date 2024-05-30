@@ -41,7 +41,7 @@ public class MoonController {
 		ctx.json(m).status(200);
 	}
 
-	public void createMoon(Context ctx) {
+	public void createMoon(Context ctx) throws NullPointerException{
 		Moon m = ctx.bodyAsClass(Moon.class);
 		
 		Moon outGoingMoon = moonService.createMoon(m);

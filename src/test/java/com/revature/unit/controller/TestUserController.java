@@ -64,9 +64,6 @@ public class TestUserController {
         System.out.println(ctx.body());
         Mockito.verify(ctx).status(202);
         Mockito.verify(ctx).json(userReturn);
-
-
-
     }
 
     @Test

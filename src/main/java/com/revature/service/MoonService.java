@@ -3,39 +3,35 @@ package com.revature.service;
 import java.util.List;
 
 import com.revature.models.Moon;
-import com.revature.models.Planet;
 import com.revature.repository.MoonDao;
 
 public class MoonService {
 
 	private MoonDao dao;
-	private PlanetService pdao;
 
 	public MoonService(MoonDao dao) {
 		this.dao = dao;
-//		pdao =
 	}
 
 	public List<Moon> getAllMoons(Integer userId) {
-//		List<Planet> userPlanets = pdao.getAllPlanets();
 		List<Moon> Moons = dao.getAllMoons(userId);
 		return Moons;
 	}
 
-	public Moon getMoonByName(int myPlanetId, String moonName) {
+	public Moon getMoonByName(int userId, String moonName) {
 		Moon foundMoon = dao.getMoonByName(moonName);
-		if(foundMoon.getMyPlanetId() == myPlanetId){
+		List<Moon> moons = dao.getAllMoons(userId);
+		if(moons.contains(foundMoon))
 			return foundMoon;
-		}
-		return null;
+		else return new Moon();
 	}
 
-	public Moon getMoonById(int myPlanetId, int moonId) {
+	public Moon getMoonById(int userId, int moonId) {
 		Moon foundMoon = dao.getMoonById(moonId);
-		if(foundMoon.getMyPlanetId() == myPlanetId){
+		List<Moon> moons = dao.getAllMoons(userId);
+		if(moons.contains(foundMoon))
 			return foundMoon;
-		}
-		return null;
+		else return new Moon();
 	}
 
 	public Moon createMoon(Moon m) {
@@ -46,7 +42,7 @@ public class MoonService {
 		if(createdMoon.getId() > 0){
 			return createdMoon;
 		}
-		return null;
+		return new Moon();
 	}
 
 	public boolean deleteMoonById(int moonId) {
