@@ -77,15 +77,6 @@
       <artifactId>webdrivermanager</artifactId>
       <version>5.8.0</version>
     </dependency>
-
-<!--    test coverage report generation tool jacoco-->
-    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.12</version>
-    </dependency>
-
     <!--    for junit 5-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -135,5 +126,116 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.12</version>
+      <scope>test</scope>
+    </dependency>
+<!--&lt;!&ndash;    for jar file building&ndash;&gt;-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.maven.plugins</groupId>-->
+<!--      <artifactId>maven-shade-plugin</artifactId>-->
+<!--      <version>3.2.1</version>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.maven.plugins</groupId>-->
+<!--      <artifactId>maven-compiler-plugin</artifactId>-->
+<!--      <version>3.13.0</version>-->
+<!--    </dependency>-->
+
   </dependencies>
+  <build>
+    <finalName>Planetarium</finalName>
+    <plugins>
+<!--      for maven building-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <transformers>
+            <transformer
+                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>org.example.Main</mainClass>
+            </transformer>
+          </transformers>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/*.SF</exclude>
+                <exclude>META-INF/*.DSA</exclude>
+                <exclude>META-INF/*.RSA</exclude>
+              </excludes>
+            </filter>
+          </filters>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--    test coverage report generation tool jacoco-->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--        <version>3.2.5</version>-->
+<!--        <configuration>-->
+<!--          <parallel>methods</parallel>-->
+<!--          <threadCount>10</threadCount>-->
+<!--          <includes>-->
+<!--            <include>**/Test*.java</include>-->
+<!--            <include>**/IntegrationTest*.java</include>-->
+<!--            <include>**/TestAPIs*.java</include>-->
+<!--&lt;!&ndash;            <include>**/*Runner.java</include>&ndash;&gt;-->
+<!--&lt;!&ndash;            <include>**/Test.java</include>&ndash;&gt;-->
+<!--&lt;!&ndash;            <include>**/TestCase.java</include>&ndash;&gt;-->
+<!--          </includes>-->
+<!--          <excludes>-->
+<!--            <exclude>**/*Abstract*Test.java</exclude>-->
+<!--          </excludes>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+
+    </plugins>
+  </build>
+
 </project>

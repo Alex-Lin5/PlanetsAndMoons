@@ -22,7 +22,6 @@ public class TestAPIsMoon {
     static Planet planet;
     static Moon moon;
     static String hostUrl;
-    int planetId;
     Javalin app;
     OkHttpClient httpClient;
     ConcurrentHashMap<String, List<Cookie>> cookieStore;

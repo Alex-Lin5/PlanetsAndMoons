@@ -41,7 +41,7 @@ public class ConnectionUtil {
             System.err.println("Database table rows cannot be deleted. "+ e.getMessage());
         }
     }
-    public  static Map<String, Object> dataSeeding() throws SQLException{
+    public static Map<String, Object> dataSeeding() throws SQLException{
         Map<String, Object> result = new HashMap<>();
         User user = new User();
         user.setUsername("userSeed");
