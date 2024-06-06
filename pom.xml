@@ -125,29 +125,8 @@
       <version>5.12.0</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.12</version>
-      <scope>test</scope>
-    </dependency>
-<!--&lt;!&ndash;    for jar file building&ndash;&gt;-->
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.apache.maven.plugins</groupId>-->
-<!--      <artifactId>maven-shade-plugin</artifactId>-->
-<!--      <version>3.2.1</version>-->
-<!--    </dependency>-->
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.apache.maven.plugins</groupId>-->
-<!--      <artifactId>maven-compiler-plugin</artifactId>-->
-<!--      <version>3.13.0</version>-->
-<!--    </dependency>-->
-
   </dependencies>
+
   <build>
     <finalName>Planetarium</finalName>
     <plugins>
@@ -169,7 +148,7 @@
           <transformers>
             <transformer
                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-              <mainClass>org.example.Main</mainClass>
+              <mainClass>com.revature.MainDriver</mainClass>
             </transformer>
           </transformers>
           <filters>
@@ -214,26 +193,31 @@
         </executions>
       </plugin>
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-surefire-plugin</artifactId>-->
-<!--        <version>3.2.5</version>-->
-<!--        <configuration>-->
-<!--          <parallel>methods</parallel>-->
-<!--          <threadCount>10</threadCount>-->
-<!--          <includes>-->
-<!--            <include>**/Test*.java</include>-->
-<!--            <include>**/IntegrationTest*.java</include>-->
-<!--            <include>**/TestAPIs*.java</include>-->
-<!--&lt;!&ndash;            <include>**/*Runner.java</include>&ndash;&gt;-->
-<!--&lt;!&ndash;            <include>**/Test.java</include>&ndash;&gt;-->
-<!--&lt;!&ndash;            <include>**/TestCase.java</include>&ndash;&gt;-->
-<!--          </includes>-->
-<!--          <excludes>-->
-<!--            <exclude>**/*Abstract*Test.java</exclude>-->
-<!--          </excludes>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit-platform</artifactId>
+            <version>3.2.5</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <parallel>methods</parallel>
+          <threadCount>10</threadCount>
+          <includes>
+            <include>**/Test*.java</include>
+            <include>**/IntegrationTest*.java</include>
+            <include>**/TestAPIs*.java</include>
+<!--            <include>**/*Runner.java</include>-->
+          </includes>
+          <excludes>
+            <exclude>**/*Abstract*Test.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
 
     </plugins>
   </build>

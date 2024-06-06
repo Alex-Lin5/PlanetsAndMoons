@@ -1,5 +1,6 @@
 package com.revature.repository;
 
+import com.revature.exceptions.UserFailException;
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.utilities.ConnectionUtil;
@@ -23,8 +24,7 @@ public class UserDao {
             }
             return null;
         } catch (SQLException e){
-            System.out.println(e);
-            return null;
+            throw new UserFailException("Cannot get username. "+ e.getMessage());
         }
     }
 
@@ -45,8 +45,7 @@ public class UserDao {
            }
            return new User();
        } catch (SQLException e){
-           System.out.println(e);
-           return new User();
+           throw new UserFailException("Cannot create user. "+ e.getMessage());
        }
    }
 
