@@ -6,9 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/users/UserRegistration.feature",
+        features = "src/test/resources/features/moons/Moon.feature",
         glue = "com/revature/end2end/steps"
 )
-public class UserRegistrationRunner {
-
+public class MoonRunner {
 }

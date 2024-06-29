@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.exceptions.PlanetFailException;
 import com.revature.models.Planet;
 import com.revature.utilities.ConnectionUtil;
 
@@ -25,8 +26,7 @@ public class PlanetDao {
 			}
 			return Planets;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new PlanetFailException("Cannot get all planets. "+ e.getMessage());
 		}
 	}
 
@@ -45,8 +45,7 @@ public class PlanetDao {
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new PlanetFailException("Cannot get planet by name. "+ e.getMessage());
 		}
 	}
 
@@ -65,8 +64,7 @@ public class PlanetDao {
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new PlanetFailException("Cannot get planet by id. "+ e.getMessage());
 		}
 	}
 
@@ -92,12 +90,12 @@ public class PlanetDao {
 				createdPlanet.setId(rs.getInt(1));
 				createdPlanet.setName(p.getName());
 				createdPlanet.setOwnerId(p.getOwnerId());
+				System.out.println("Planet added: "+ createdPlanet);
 				return createdPlanet;
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new PlanetFailException("Cannot create planet. "+ e.getMessage());
 		}
 	}
 
@@ -115,8 +113,7 @@ public class PlanetDao {
 
 			return rows>0;
 		} catch (SQLException e){
-			System.out.println(e);
-			return false;
+			throw new PlanetFailException("Cannot delete planet. "+ e.getMessage());
 		}
 	}
 }

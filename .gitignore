@@ -1,6 +1,5 @@
 *.db
-.vscode/
-.imi
+.pem
 target/
 
 # Compiled class files
@@ -36,6 +35,7 @@ bin/
 
 # IntelliJ
 .idea/
+*.imi
 *.iml
 *.iws
 *.ipr
@@ -45,6 +45,7 @@ out/
 nb-configuration.xml
 
 # Visual Studio Code
+.vscode/
 
 # Gradle
 .gradle/

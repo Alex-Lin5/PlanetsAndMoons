@@ -1,4 +1,7 @@
 -- Use this script to set up your Planetarium database
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Planets;
+DROP TABLE IF EXISTS Moons;
 
 -- needed for referential integrity enforcement
 PRAGMA foreign_keys = 1;

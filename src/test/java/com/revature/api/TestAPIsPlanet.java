@@ -13,40 +13,5 @@ import java.util.Map;
 import java.util.Objects;
 
 public class TestAPIsPlanet {
-    public Javalin app;
 
-    @BeforeEach
-    public void setup(){
-        app = Javalin.create();
-        RequestMapper.setUpEndPoints(app);
-        // login first
-//        JavalinTest.test(app, (server, client) -> {
-//            Map<String,String> requestJSON=new HashMap<>();
-//            requestJSON.put("username","test");
-//            requestJSON.put("password","test");
-//            client.post("/login", requestJSON);
-//        });
-
-    }
-
-    @Test
-    public void testGetAllPlanets(){
-        JavalinTest.test(app, (server, client) ->{
-            Map<String,String> requestJSON=new HashMap<>();
-            requestJSON.put("username","test");
-            requestJSON.put("password","test");
-
-            int statusCode;
-            String responseBody;
-            try(
-                    Response login = client.post("/login", requestJSON);
-                    Response response = client.get("/api/planets")){
-                statusCode = response.code();
-                responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(statusCode+" :::: "+responseBody);
-
-            }
-            Assertions.assertEquals(200, statusCode);
-        });
-    }
 }

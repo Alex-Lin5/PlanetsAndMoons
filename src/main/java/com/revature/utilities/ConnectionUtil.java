@@ -5,6 +5,7 @@ import com.revature.models.Moon;
 import com.revature.models.Planet;
 import com.revature.models.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -24,6 +25,15 @@ public class ConnectionUtil {
             return DriverManager.getConnection("jdbc:sqlite:src/test/resources/PlanetariumTest.db");
         }
         return DriverManager.getConnection("jdbc:sqlite:src/main/resources/planetarium.db");
+    }
+    public static void resetDatabase() throws SQLException{
+        String path = new File(
+            ClassLoader.getSystemClassLoader().getResource("db-setup.sql").getFile())
+                .toPath().toString();
+        try(Connection connection = ConnectionUtil.createConnection()){
+//            Sqlsc
+        }
+
     }
     public static void deleteTables() throws SQLException{
         try(Connection connection = ConnectionUtil.createConnection();){

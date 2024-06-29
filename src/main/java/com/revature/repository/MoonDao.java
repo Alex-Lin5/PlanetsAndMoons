@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.exceptions.MoonFailException;
 import com.revature.models.Moon;
 import com.revature.models.Planet;
 import com.revature.utilities.ConnectionUtil;
@@ -45,8 +46,7 @@ public class MoonDao {
 			}
 			return Moons;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new MoonFailException("Cannot get all moons. "+ e.getMessage());
 		}
 	}
 
@@ -65,9 +65,7 @@ public class MoonDao {
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
-		}
+			throw new MoonFailException("Cannot get moon by name. "+ e.getMessage());		}
 	}
 
 	public Moon getMoonById(int moonId) {
@@ -85,8 +83,7 @@ public class MoonDao {
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new MoonFailException("Cannot get moon by id. "+ e.getMessage());
 		}
 	}
 
@@ -126,8 +123,7 @@ public class MoonDao {
 			}
 			return null;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new MoonFailException("Cannot create moon. "+ e.getMessage());
 		}
 	}
 
@@ -139,8 +135,7 @@ public class MoonDao {
 			int val = ps.executeUpdate();
 			return val>0;
 		} catch (SQLException e){
-			System.out.println(e);
-			return false;
+			throw new MoonFailException("Cannot delete moon by id. "+ e.getMessage());
 		}
 	}
 
@@ -160,8 +155,7 @@ public class MoonDao {
 			}
 			return Moons;
 		} catch (SQLException e){
-			System.out.println(e);
-			return null;
+			throw new MoonFailException("Cannot get moon from planet. "+ e.getMessage());
 		}
 	}
 }

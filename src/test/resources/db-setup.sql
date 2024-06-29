@@ -1,4 +1,7 @@
 -- Use this script to set up your Planetarium database
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Planets;
+DROP TABLE IF EXISTS Moons;
 
 -- needed for referential integrity enforcement
 PRAGMA foreign_keys = 1;
@@ -19,3 +22,7 @@ create table moons(
 	name varchar(20),
 	myPlanetId int references planets(id)
 );
+
+INSERT INTO Users (username, password) VALUES (initialUser, validPassword);
+INSERT INTO planets (name, ownerId) VALUES (firstPlanet, 1);
+INSERT INTO moons (name, myPlanetId) VALUES (firstMoon, 1);
